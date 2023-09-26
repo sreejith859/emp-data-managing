@@ -58,63 +58,72 @@ export const addEmpController = async (req, res) => {
 //update emp
 export const updateEmpController = async (req, res) => {
   try {
-    const {name, empID, email, phone, DOJ, position} = req.body
-    const employee =await employeeModel.findById(re.employee._id)
+    const { name, empID, email, phone, DOJ, position } = req.body;
+    const employee = await employeeModel.findByIdAndUpdate(
+      req.params.id,
+      {
+        name,
+        empID,
+        email,
+        phone,
+        DOJ,
+        position,
+      },
+      { new: true } 
+    );
 
-    const updatedEmployee =await employeeModel.findByIdAndUpdate(
-        req.employee._id,
-        {
-            name:name || employee.name,
-            empID:empID || employee.empID,
-            email:email || employee.email,
-            phone:phone ||employee.phone,
-            DOJ:DOJ || employee.DOJ,
-            position:position || employee.position
-        },
-        {new:true}
-    )
+    if (!employee) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Employee not found" });
+    }
 
+    return res.status(200).json({
+      success: true,
+      message: "Employee updated successfully",
+      updatedEmployee: employee,
+    });
   } catch (error) {
     console.log(error);
     res.status(400).send({
-        success: false,
-        message: "error while updating employee",
-        error,
+      success: false,
+      message: "error while updating employee",
+      error,
     });
   }
 };
 //delete emp
 export const deleteEmpController = async (req, res) => {
   try {
-    await employeeModel.findByIdAndDelete(req.params.eid)
+    await employeeModel.findByIdAndDelete(req.params.eid);
     res.status(200).send({
-        success: true,
-        message: "employee deleted successfully",
-      });
+      success: true,
+      message: "employee deleted successfully",
+    });
   } catch (error) {
     console.log(error);
     res.status(500).send({
-        success: false,
-        message: "error in deleting employee",
-        error,
-      });
+      success: false,
+      message: "error in deleting employee",
+      error,
+    });
   }
 };
 //get emp
 export const getEmpController = async (req, res) => {
   try {
-    const employee =await employeeModel.find({})
+    const employee = await employeeModel.find({});
     res.status(200).send({
-        success:true,
-        message:'employee data loaded successfully',
-        employee
-    })
+      success: true,
+      message: "employee data loaded successfully",
+      employee,
+    });
   } catch (error) {
     console.log(error);
     res.status(500).send({
-        success: false,
-        message: "error while getting employee data",
-        error,
-    })
+      success: false,
+      message: "error while getting employee data",
+      error,
+    });
   }
 };

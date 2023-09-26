@@ -7,7 +7,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const AddEmployee = () => {
-  const navigate =useNavigate()
+  const navigate = useNavigate();
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -26,12 +26,12 @@ const AddEmployee = () => {
         DOJ,
         position,
       };
-      await axios.post(`${API}/employee/add-emp`, employee)
-      if (employee && employee.data.success) {
+      const response = await axios.post(`${API}/employee/add-emp`, employee);
+      if (response && response.data && response.data.success) {
+        toast.success(response && response.data.message);
         navigate("/");
-        toast.success(employee && employee.data.message);
       } else {
-        toast.error(employee.data.message);
+        toast.error(response.data.message);
       }
     } catch (error) {
       console.log(error);

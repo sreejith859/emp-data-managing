@@ -13,7 +13,7 @@ const router = express.Router();
 //add employee
 router.post("/add-emp", addEmpController);
 //update employee
-router.put("/update-emp", updateEmpController);
+router.put("/update/:id", updateEmpController);
 //update employee
 router.delete("/delete-emp/:eid", deleteEmpController);
 //update employee

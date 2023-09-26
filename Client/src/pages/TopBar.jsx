@@ -40,7 +40,7 @@ const TopBar = () => {
     <div className='d-flex'>
 
       <h1 className='text-center '>EMPLOYEE DATA</h1>
-      <button className='btn btn-dark ms-auto p-2' onClick={handleDownloadCSV}>Download LIst</button>
+      <button className='btn btn-dark ms-auto p-2' onClick={handleDownloadCSV}>Download List</button>
     </div>
   )
 }
