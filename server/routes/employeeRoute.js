@@ -15,8 +15,8 @@ router.post("/add-emp", addEmpController);
 //update employee
 router.put("/update-emp", updateEmpController);
 //update employee
-router.put("/delete-emp/:eid", deleteEmpController);
+router.delete("/delete-emp/:eid", deleteEmpController);
 //update employee
-router.put("/get-emp", getEmpController);
+router.get("/get-emp", getEmpController);
 
 export default router;

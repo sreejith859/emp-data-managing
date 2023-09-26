@@ -3,6 +3,7 @@ import colors from "colors";
 import dotenv from "dotenv";
 import morgan from "morgan";
 import connectB from "./config/db.js";
+import cors from "cors";
 import employeeRoute from "./routes/employeeRoute.js";
 //config env
 dotenv.config();
@@ -13,12 +14,15 @@ connectB();
 //rest object
 const app = express();
 
-//midlewares
+
+// Middleware: Use cors
+app.use(cors());
+// other midlewares
 app.use(express.json());
 app.use(morgan("dev"));
 
 //routes
-app.use("/api/v1/employee", employeeRoute);
+app.use("/employee", employeeRoute);
 
 //rest api
 app.get("/", (req, res) => {
